@@ -1,0 +1,32 @@
+database:
+  db_username: ""
+  db_password: ""
+  name: ""
+
+github:
+  github_token:
+  start_year: 2018  #from CVE-[start_year]
+  end_year: 2023    #till CVE-[end_year]
+  poc_dir: ""
+  blacklist:
+    - xxx
+    - aaa
+
+msf:
+  msf_dir: ""
+
+vulhub:
+  vulhub_dir: ""
+
+exploitdb:
+  exploitdb_dir: ""
+
+email:
+  smtp_server: smtp.163.com
+  smtp_port: 25
+  username:
+  password:
+  from:
+  to:
+    - test1
+    - test2
