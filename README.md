@@ -207,4 +207,4 @@ github poc文件夹名称为CVE号，并且以作者名命名不超过5个子文
 
 
 
-![qrcode](assets/qrcode_for_gh_6084daba38de_258 (1).jpg)
+![qrcode](assets/qrcode.jpg)
