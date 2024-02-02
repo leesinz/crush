@@ -123,7 +123,7 @@ func CheckGithubUpdate() string {
 	year := time.Now().Year()
 	yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
 	poc_dir := cfg.Github.PocDir
-	apiURL := fmt.Sprintf("https://api.github.com/search/repositories?q=CVE-%d&per_page=100&page=1", year)
+	apiURL := fmt.Sprintf("https://api.github.com/search/repositories?q=CVE-%d&sort=updated&per_page=100&page=1", year)
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", apiURL, nil)
 	if err != nil {

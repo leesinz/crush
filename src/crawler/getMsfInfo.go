@@ -64,7 +64,7 @@ func UpdateMSF() error {
 
 func CheckMSFUpdate() string {
 	var result strings.Builder
-
+	updated := false
 	file, err := os.Open(msfupdateInfoPath)
 	if err != nil {
 		fmt.Println("open file err:", err)
@@ -75,11 +75,8 @@ func CheckMSFUpdate() string {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if upToDate.MatchString(line) {
-			result.WriteString("Already up to date.")
-		}
-
 		if newExploitInfo.MatchString(line) {
+			updated = true
 			cveFlag := ""
 			newFilePath := newExploitInfo.FindStringSubmatch(line)[1]
 			file, err := os.Open(msfDir + newFilePath)
@@ -99,6 +96,9 @@ func CheckMSFUpdate() string {
 			}
 			result.WriteString(cveFlag + newFilePath + "\n")
 		}
+	}
+	if !updated {
+		result.WriteString("Already up to date.")
 	}
 	return result.String()
 }
