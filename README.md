@@ -116,23 +116,31 @@ root@iZt4ndirp1045jgp7cqswkZ:~# google-chrome -version
 Google Chrome 121.0.6167.139
 ```
 
-#### 使用方法
+#### 快速开始
 
-初次使用时，先使用 init 参数，进行历史数据爬取，数据库创建等操作，后续直接使用 monitor 参数即可，会监控每天更新内容并通过邮件进行推送。
+##### 环境配置
+
+config.yml&&go环境&&mysql环境&&google-chrome配置
+
+#####  go run main.go init
+
+初次使用时，先使用 init 参数，进行历史数据爬取，数据库创建等操作
 
 ![image-20240201165636642](assets/image-20240201165636642.png)
 
+##### 导入github和seebug历史db数据
+
+github和seebug由于反爬或api速率限制，进行全量历史信息爬取速度较慢，.sql文件在sql文件夹下，直接导入即可，语句如下：
+
+mysql -u username -p database_name < /path/to/your/file.sql
+
+##### go run main.go monitor
+
+后续直接使用 monitor 参数即可，会监控每天更新内容并通过邮件进行推送。
+
 ![image-20240201171922551](assets/image-20240201171922551.png)
 
-crontab请自行配置，代码中未设置定时任务或循环等。
-
-**注意**：
-
-exploit-db，seebug，github的数据库文件均见sql文件夹（截止到2024-1-31的数据）。
-
-导入方式：mysql -u username -p database_name < /path/to/your/file.sql
-
-**exploit-db的数据不需要导入，直接通过init参数爬取即可，github和seebug在执行init时默认不会爬取（速率限制），可以通过.sql文件直接导入。**
+**crontab请自行配置，代码中未设置定时任务或循环等。**
 
 ## 匹配逻辑
 
@@ -146,6 +154,8 @@ exploit-db，seebug，github的数据库文件均见sql文件夹（截止到2024
 
 ## Else...
 
+#### 历史poc数据
+
 **exploit-db**
 
 爬取历史poc时速率太快会被封，截止2024-1-31所有历史poc数据已爬取打包到pocs目录下。
@@ -153,12 +163,6 @@ exploit-db，seebug，github的数据库文件均见sql文件夹（截止到2024
 **github**
 
 github api访问有速率限制，爬取了CVE-2018-2023的历史数据，经过筛选处理后，存档到本地，详见pocs目录。
-
-**seebug**
-
-加速乐反爬，该项目通过webdriver进行爬取，如需历史数据见sql文件夹。
-
-
 
 #### 运行结果示例
 
