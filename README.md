@@ -126,6 +126,14 @@ Google Chrome 121.0.6167.139
 
 crontab请自行配置，代码中未设置定时任务或循环等。
 
+**注意**：
+
+exploit-db，seebug，github的数据库文件均见sql文件夹（截止到2024-1-31的数据）。
+
+导入方式：mysql -u username -p database_name < /path/to/your/file.sql
+
+**exploit-db的数据不需要导入，直接通过init参数爬取即可，github和seebug在执行init时默认不会爬取（速率限制），可以通过.sql文件直接导入。**
+
 ## 匹配逻辑
 
 #### github
@@ -151,12 +159,6 @@ github api访问有速率限制，爬取了CVE-2018-2023的历史数据，经过
 加速乐反爬，该项目通过webdriver进行爬取，如需历史数据见sql文件夹。
 
 
-
-#### 导入方式
-
-exploit-db，seebug，github的数据库文件均见sql文件夹（截止到2024-1-31的数据）。
-
-mysql -u username -p database_name < /path/to/your/file.sql
 
 #### 运行结果示例
 
