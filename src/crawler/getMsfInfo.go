@@ -12,7 +12,6 @@ import (
 )
 
 var (
-	upToDate             = regexp.MustCompile(`Already up to date\.`)
 	newExploitInfo       = regexp.MustCompile(`(?: create mode.{1,12})(modules/[a-zA-z0-9/_]+\.rb)`)
 	cvePattern           = regexp.MustCompile(`(?:\')(CVE)(?:\', \')([0-9]{4}-[0-9]{4,10})(?:\')`)
 	newCVEInfos          = make(map[string]string)

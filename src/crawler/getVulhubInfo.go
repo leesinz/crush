@@ -54,7 +54,7 @@ func UpdateVulhub() error {
 
 func CheckVulhubUpdate() string {
 	var result strings.Builder
-
+	updated := false
 	file, err := os.Open(vulhubupdateInfoPath)
 	if err != nil {
 		fmt.Println("open file err:", err)
@@ -65,14 +65,15 @@ func CheckVulhubUpdate() string {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if upToDate.MatchString(line) {
-			result.WriteString("Already up to date.")
-		}
 		if newVulhubInfo.MatchString(line) {
+			updated = true
 			patterns := strings.Split(line, " ")
 			last := patterns[len(patterns)-1]
 			newVul := strings.TrimSuffix(last, "/docker-compose.yml")
 			result.WriteString(newVul + "\n")
+		}
+		if !updated {
+			result.WriteString("Already up to date.")
 		}
 	}
 	return result.String()
