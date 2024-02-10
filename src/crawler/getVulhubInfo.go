@@ -72,9 +72,10 @@ func CheckVulhubUpdate() string {
 			newVul := strings.TrimSuffix(last, "/docker-compose.yml")
 			result.WriteString(newVul + "\n")
 		}
-		if !updated {
-			result.WriteString("Already up to date.")
-		}
+
+	}
+	if !updated {
+		result.WriteString("Already up to date.")
 	}
 	return result.String()
 }
