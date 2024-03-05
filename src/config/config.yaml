@@ -21,6 +21,9 @@ vulhub:
 exploitdb:
   exploitdb_dir: ""
 
+packetstorm:
+  packetstorm_dir: ""
+
 email:
   smtp_server: smtp.163.com
   smtp_port: 25

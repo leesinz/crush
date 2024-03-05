@@ -35,6 +35,10 @@ type Config struct {
 		ExploitdbDir string `yaml:"exploitdb_dir"`
 	}
 
+	PacketStorm struct {
+		PacketstormDir string `yaml:"packetstorm_dir"`
+	}
+
 	Email struct {
 		SMTP_SERVER string   `yaml:"smtp_server"`
 		SMTP_PORT   string   `yaml:"smtp_port"`

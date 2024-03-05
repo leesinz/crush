@@ -2,6 +2,7 @@ package loginfo
 
 import (
 	"crush/crawler"
+	"crush/database"
 	"crush/mail"
 	"crush/utils"
 	"fmt"
@@ -34,6 +35,14 @@ func LogScraper() {
 	utils.PrintColor("info", "Check Vulhub")
 	crawler.UpdateVulhub()
 	vulhubinfo := crawler.CheckVulhubUpdate() + "\n\n"
+
+	utils.PrintColor("info", "Check 0day.today")
+	database.CreateZerodayDB()
+	zerodayinfo := crawler.Check0dayUpdate() + "\n\n"
+
+	utils.PrintColor("info", "Check packetstorm")
+	database.CreatePacketstormDB()
+	packetstorminfo := crawler.CheckPacketstormUpdate() + "\n\n"
 	//TODO
 	htmlTemplate := fmt.Sprintf(`<!DOCTYPE html>
 <html lang="en">
@@ -96,9 +105,23 @@ func LogScraper() {
             %s
         </p>
     </div>
+	
+	<div class="section">
+        <h3>0day.today</h3>
+        <p>
+            %s
+        </p>
+    </div>
+
+	<div class="section">
+        <h3>PacketStorm</h3>
+        <p>
+            %s
+        </p>
+    </div>
 </body>
 </html>
-`, yesterday, txt2html(edbinfo), txt2html(githubinfo), txt2html(msfinfo), txt2html(seebuginfo), txt2html(vulhubinfo))
+`, yesterday, txt2html(edbinfo), txt2html(githubinfo), txt2html(msfinfo), txt2html(seebuginfo), txt2html(vulhubinfo), txt2html(zerodayinfo), txt2html(packetstorminfo))
 
 	utils.WriteToLog(htmlTemplate, logpath)
 	mail.Sendmail()
