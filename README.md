@@ -211,6 +211,9 @@ github poc文件夹名称为CVE号，并且以作者名命名不超过5个子文
 除非您已充分阅读、完全理解并接受本协议所有条款，否则，请您不要安装并使用本工具。
 您的使用行为或者您以其他任何明示或者默示方式表示接受本协议的，即视为您已阅读并同意本协议的约束。
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=leesinz/crush&type=Date)](https://star-history.com/#leesinz/crush&Date)
 
 
 ![qrcode](assets/qrcode.jpg)
