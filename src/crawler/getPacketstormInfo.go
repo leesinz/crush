@@ -5,11 +5,9 @@ import (
 	"crush/utils"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -18,36 +16,10 @@ import (
 var (
 	packetstormlogDir         = filepath.Join(utils.GetParentPath(), "data", "packetstorm", "log")
 	packetstormupdateInfoPath = filepath.Join(packetstormlogDir, "packetstorm_update_info.log")
-	packetstormDir            = cfg.PacketStorm.PacketstormDir
 )
 
-func DownloadPacketstorm(url string, filePath string) error {
-	err := os.MkdirAll(filepath.Dir(filePath), 0755)
-	if err != nil {
-		return err
-	}
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	file, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	_, err = io.Copy(file, resp.Body)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func CheckPacketstormUpdate() string {
-	var result strings.Builder
+	var result, rstHTML strings.Builder
 	updated := false
 	yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
 	url := "https://packetstormsecurity.com/files/tags/exploit/"
@@ -76,26 +48,23 @@ func CheckPacketstormUpdate() string {
 		poc_selector := s.Find("dd.act-links a[href^='/files/download']")
 		poc_tmp, _ := poc_selector.Attr("href")
 		poc := "https://packetstormsecurity.com" + poc_tmp
-		pocParts := strings.Split(poc, "/")
-		poc_name := pocParts[len(pocParts)-1]
 		if date == yesterday {
 			updated = true
 			err := database.InsertPacketstormDB(id, string2date(date), name, cve, poc, description)
 			if err != nil {
 				log.Fatal(err)
 			}
-			err = DownloadPacketstorm(poc, packetstormDir+id+"/"+poc_name)
-			if err != nil {
-				log.Fatal(err)
-			}
 			result.WriteString(id + " " + name + " " + cve + "\n")
+			rstHTML.WriteString(fmt.Sprintf("%s   <a href=\"%s\">%s</a>\n", id, poc, name))
 		}
 	})
 
 	if !updated {
 		result.WriteString("Already up to date.")
+		rstHTML = result
+	} else {
+		utils.PrintColor("success", "PacketStorm Updated")
 	}
-
 	utils.WriteToLog(yesterday+"\n"+result.String(), packetstormupdateInfoPath)
-	return result.String()
+	return rstHTML.String()
 }

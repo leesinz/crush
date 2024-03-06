@@ -25,38 +25,29 @@ func ArgParser() {
 
 func initTasks() {
 
-	//exploitdb
 	utils.PrintColor("info", "Commencing initialization of the task")
 	database.CreateEDB()
-	utils.PrintColor("info", "Create exploit-db database successfully")
-	utils.PrintColor("info", "Start crawling exploit-db history info")
-	crawler.ConcurrentEDBCrawler()
+	utils.PrintColor("info", "Create exploit_db database")
 
 	database.CreateGithubDB()
-	/*
-		//github
-		utils.PrintColor("info", "Create github database successfully")
-		utils.PrintColor("info", "Start crawling github history info")
-		crawler.GithubCrawler()
-
-	*/
+	utils.PrintColor("info", "Create github_db database")
 
 	database.CreateSeebugDB()
-	/*
-		//seebug
-		utils.PrintColor("info", "Create seebug database successfully")
-		utils.PrintColor("info", "Start crawling seebug history info")
-		crawler.FetchSeebug()
-	*/
+	utils.PrintColor("info", "Create seebug_db database")
 
-	//msf
-	utils.PrintColor("info", "Start git clone metasploit")
+	utils.PrintColor("info", "Git clone metasploit")
 	crawler.InitMSF()
 
-	//vulhub
-	utils.PrintColor("info", "Start git clone vulhub")
+	utils.PrintColor("info", "Git clone vulhub")
 	crawler.InitVulhub()
 
+	database.CreateZerodayDB()
+	utils.PrintColor("info", "Create zeroday_db database")
+
+	database.CreatePacketstormDB()
+	utils.PrintColor("info", "Create packetstorm_db database")
+
+	utils.PrintColor("success", "Tasks init successfully")
 }
 
 func monitor() {

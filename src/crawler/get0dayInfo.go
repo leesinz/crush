@@ -23,7 +23,6 @@ func Check0dayUpdate() string {
 	ctx, _ := chromedp.NewExecAllocator(context.Background(),
 		append(
 			chromedp.DefaultExecAllocatorOptions[:],
-			//chromedp.Flag("headless", false),
 			chromedp.Flag("enable-automation", false),
 			chromedp.Flag("disable-blink-features", "AutomationControlled"),
 		)...,
@@ -33,7 +32,7 @@ func Check0dayUpdate() string {
 	ctx, cancel := context.WithTimeout(ctx, 600*time.Second)
 	defer cancel()
 	var content string
-	var result strings.Builder
+	var result, rstHTML strings.Builder
 	yesterday := time.Now().AddDate(0, 0, -1)
 	date_format := yesterday.Format("02-01-2006")
 	url := fmt.Sprintf("https://0day.today/date/%s", date_format)
@@ -49,7 +48,7 @@ func Check0dayUpdate() string {
 	)
 	if err != nil {
 		errMsg := fmt.Sprintf("crawling %v err:%v", url, err)
-		log.Println(errMsg)
+		log.Fatal(errMsg)
 	}
 
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(content))
@@ -86,7 +85,8 @@ func Check0dayUpdate() string {
 			if err != nil {
 				log.Fatal(err)
 			}
-			result.WriteString(fmt.Sprintf("%-7s %-120s %s\n", id, name, cve))
+			result.WriteString(id + "  " + name + "  " + cve + "\n")
+			rstHTML.WriteString(fmt.Sprintf("%s   <a href=\"%s\">%s</a>\n", id, poc, name))
 
 		}
 
@@ -94,8 +94,10 @@ func Check0dayUpdate() string {
 
 	if len(vulnerabilities) == 0 {
 		result.WriteString("Already up to date.")
+		rstHTML = result
+	} else {
+		utils.PrintColor("success", "0day.today Updated")
 	}
-	fmt.Println(result.String())
 	utils.WriteToLog(yesterday.Format("2006-01-02")+"\n"+result.String(), zerodayupdateInfoPath)
-	return result.String()
+	return rstHTML.String()
 }

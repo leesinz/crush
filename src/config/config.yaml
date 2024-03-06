@@ -1,35 +1,30 @@
 database:
-  db_username: ""
-  db_password: ""
-  name: ""
+  db_port: 3306
+  db_username: "root"
+  db_password: "password"
+  name: "db_name"
 
 github:
-  github_token:
-  start_year: 2018  #from CVE-[start_year]
-  end_year: 2023    #till CVE-[end_year]
-  poc_dir: ""
+  github_token: ghp_xxx
   blacklist:
-    - xxx
     - aaa
+    - bbb
 
 msf:
-  msf_dir: ""
+  #the folder used for git pull msf
+  msf_dir: "/root/vul_info/msf/"
 
 vulhub:
-  vulhub_dir: ""
-
-exploitdb:
-  exploitdb_dir: ""
-
-packetstorm:
-  packetstorm_dir: ""
+  #the folder used for git pull vulhub
+  vulhub_dir: "/root/vul_info/vulhub/"
 
 email:
   smtp_server: smtp.163.com
   smtp_port: 25
-  username:
-  password:
-  from:
+  username: test@163.com
+  #授权码，不是邮箱密码
+  password: xxxxxxxx
+  from: test@163.com
   to:
-    - test1
-    - test2
+    - test1@xxx.com
+    - test2@xxx.com

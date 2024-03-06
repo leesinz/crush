@@ -2,7 +2,6 @@ package loginfo
 
 import (
 	"crush/crawler"
-	"crush/database"
 	"crush/mail"
 	"crush/utils"
 	"fmt"
@@ -21,28 +20,31 @@ func txt2html(content string) string {
 
 func LogScraper() {
 	yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
-	logpath := filepath.Join(updatelogDir, yesterday)
-	utils.PrintColor("info", "Monitor update")
-	utils.PrintColor("info", "Check Exploitdb")
-	edbinfo := crawler.CheckEdbUpdate() + "\n"
+	logPath := filepath.Join(updatelogDir, yesterday)
+	utils.PrintColor("info", "Monitor Update")
+	utils.PrintColor("info", "Check Exploit-db")
+	edbInfo := crawler.CheckEdbUpdate()
+
 	utils.PrintColor("info", "Check Github")
-	githubinfo := crawler.CheckGithubUpdate() + "\n"
+	githubInfo := crawler.CheckGithubUpdate()
+
 	utils.PrintColor("info", "Check Metasploit")
 	crawler.UpdateMSF()
-	msfinfo := crawler.CheckMSFUpdate() + "\n\n"
+	msfInfo := crawler.CheckMSFUpdate()
+
 	utils.PrintColor("info", "Check Seebug")
-	seebuginfo := crawler.CheckSeebugUpdate() + "\n\n"
+	seebugInfo := crawler.CheckSeebugUpdate()
+
 	utils.PrintColor("info", "Check Vulhub")
 	crawler.UpdateVulhub()
-	vulhubinfo := crawler.CheckVulhubUpdate() + "\n\n"
+	vulhubInfo := crawler.CheckVulhubUpdate()
 
 	utils.PrintColor("info", "Check 0day.today")
-	database.CreateZerodayDB()
-	zerodayinfo := crawler.Check0dayUpdate() + "\n\n"
+	zerodayInfo := crawler.Check0dayUpdate()
 
-	utils.PrintColor("info", "Check packetstorm")
-	database.CreatePacketstormDB()
-	packetstorminfo := crawler.CheckPacketstormUpdate() + "\n\n"
+	utils.PrintColor("info", "Check PacketStorm")
+	packetstormInfo := crawler.CheckPacketstormUpdate()
+
 	//TODO
 	htmlTemplate := fmt.Sprintf(`<!DOCTYPE html>
 <html lang="en">
@@ -73,56 +75,56 @@ func LogScraper() {
     </style>
 </head>
 <body>
-    <h2>Vulnerability Update Monitor</h2>
-	<h3>%s</h3>
+    <h1>Vulnerability Update Monitor</h1>
+	<h2>%s</h2>
     <div class="section">
-        <h3>Exploit-db</h3>
+        <h2>Exploit-db</h2>
         <p>
             %s
         </p>
     </div>
     <div class="section">
-        <h3>Github</h3>
+        <h2>Github</h2>
         <p>
             %s
         </p>
     </div>
     <div class="section">
-        <h3>Metasploit</h3>
+        <h2>Metasploit</h2>
         <p>
             %s
         </p>
     </div>
     <div class="section">
-        <h3>Seebug</h3>
+        <h2>Seebug</h2>
         <p>
             %s
         </p>
     </div>
     <div class="section">
-        <h3>Vulhub</h3>
+        <h2>Vulhub</h2>
         <p>
             %s
         </p>
     </div>
 	
 	<div class="section">
-        <h3>0day.today</h3>
+        <h2>0day.today</h2>
         <p>
             %s
         </p>
     </div>
 
 	<div class="section">
-        <h3>PacketStorm</h3>
+        <h2>PacketStorm</h2>
         <p>
             %s
         </p>
     </div>
 </body>
 </html>
-`, yesterday, txt2html(edbinfo), txt2html(githubinfo), txt2html(msfinfo), txt2html(seebuginfo), txt2html(vulhubinfo), txt2html(zerodayinfo), txt2html(packetstorminfo))
+`, yesterday, txt2html(edbInfo), txt2html(githubInfo), txt2html(msfInfo), txt2html(seebugInfo), txt2html(vulhubInfo), txt2html(zerodayInfo), txt2html(packetstormInfo))
 
-	utils.WriteToLog(htmlTemplate, logpath)
+	utils.WriteToLog(htmlTemplate, logPath)
 	mail.Sendmail()
 }

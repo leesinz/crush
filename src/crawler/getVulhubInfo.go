@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"crush/utils"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -18,12 +19,6 @@ var (
 	vulhubDir               = cfg.Vulhub.VulhubDir
 )
 
-func Test() {
-	fmt.Println(msfDir)
-	fmt.Println(vulhubDir)
-
-}
-
 func InitVulhub() {
 	fmt.Println(vulhubDir)
 	err := utils.GitClone("https://github.com/vulhub/vulhub.git", vulhubDir)
@@ -33,23 +28,26 @@ func InitVulhub() {
 	}
 }
 
-func UpdateVulhub() error {
-	os.MkdirAll(filepath.Dir(vulhubupdateInfoPath), 0755)
-	err := runCommand("bash", "-c", "date +%Y-%m-%d\\ %H:%M:%S > "+vulhubupdateInfoPath)
+func UpdateVulhub() {
+	err := os.MkdirAll(filepath.Dir(vulhubupdateInfoPath), 0755)
 	if err != nil {
-		return err
+		log.Fatal(err)
+	}
+	err = runCommand("bash", "-c", "date +%Y-%m-%d\\ %H:%M:%S > "+vulhubupdateInfoPath)
+	if err != nil {
+		log.Fatal(err)
 	}
 	err = runCommand("bash", "-c", "cd "+cfg.Vulhub.VulhubDir+"; git pull >> "+vulhubupdateInfoPath)
 	if err != nil {
-		return err
+		log.Fatal(err)
+
 	}
-	//check new exploits
 	CheckVulhubUpdate()
 	err = runCommand("bash", "-c", "cat "+vulhubupdateInfoPath+" >> "+vulhubupdateHistoryPath)
 	if err != nil {
-		return err
+		log.Fatal(err)
+
 	}
-	return nil
 }
 
 func CheckVulhubUpdate() string {
@@ -76,6 +74,8 @@ func CheckVulhubUpdate() string {
 	}
 	if !updated {
 		result.WriteString("Already up to date.")
+	} else {
+		utils.PrintColor("success", "Vulhub Updated")
 	}
 	return result.String()
 }

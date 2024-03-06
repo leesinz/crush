@@ -154,13 +154,11 @@ func CheckSeebugUpdate() string {
 		if item.SubmitTime == yesterday {
 			updated = true
 			database.InsertSeebugDB(item.SSVID, string2date(item.SubmitTime), checkSeverity(item.Severity), item.Name, checkCVE(item.CVE), checkPOC(item.POC))
-			tmp := fmt.Sprintf("%v %v %v %v %v\n", item.SSVID, checkSeverity(item.Severity), item.Name, checkCVE(item.CVE), item.POC)
-			info.WriteString(tmp)
+			info.WriteString(fmt.Sprintf("%v %v\n", item.SSVID, item.Name))
 		}
-
-		//database.InsertSeebugDB(item.SSVID, string2date(item.SubmitTime), checkSeverity(item.Severity), item.Name, checkCVE(item.CVE), checkPOC(item.POC))
 	}
 	if updated {
+		utils.PrintColor("success", "Seebug Updated")
 		utils.WriteToLog(yesterday+"\n"+info.String(), seebugupdateInfoPath)
 		return info.String()
 	} else {

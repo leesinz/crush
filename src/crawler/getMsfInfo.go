@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"crush/utils"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -33,32 +34,24 @@ func InitMSF() {
 	if err != nil {
 		fmt.Println("git clone msf failed:", err)
 		return
-	} /*
-		err = runCommand("touch", updateInfoPath)
-		if err != nil {
-			return
-		}
-	*/
+	}
 }
 
-func UpdateMSF() error {
+func UpdateMSF() {
 	os.MkdirAll(filepath.Dir(msfupdateInfoPath), 0755)
 	err := runCommand("bash", "-c", "date +%Y-%m-%d\\ %H:%M:%S > "+msfupdateInfoPath)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 	err = runCommand("bash", "-c", "cd "+cfg.MSF.MsfDir+"; git pull >> "+msfupdateInfoPath)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
-	//check new exploits
 	CheckMSFUpdate()
 	err = runCommand("bash", "-c", "cat "+msfupdateInfoPath+" >> "+msfupdateHistoryPath)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
-
-	return nil
 }
 
 func CheckMSFUpdate() string {
@@ -98,6 +91,8 @@ func CheckMSFUpdate() string {
 	}
 	if !updated {
 		result.WriteString("Already up to date.")
+	} else {
+		utils.PrintColor("success", "Metasploit Updated")
 	}
 	return result.String()
 }

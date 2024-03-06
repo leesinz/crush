@@ -11,6 +11,7 @@ var configPath = filepath.Join(getConfigDir(), "config", "config.yaml")
 
 type Config struct {
 	Database struct {
+		DBPort     int    `yaml:"db_port"`
 		DBUsername string `yaml:"db_username"`
 		DBPassword string `yaml:"db_password"`
 		Name       string `yaml:"name"`
@@ -18,11 +19,7 @@ type Config struct {
 	Github struct {
 		GithubToken   string   `yaml:"github_token"`
 		BlacklistUser []string `yaml:"blacklist"`
-		StartYear     int      `yaml:"start_year"`
-		EndYear       int      `yaml:"end_year"`
-		PocDir        string   `yaml:"poc_dir"`
 	}
-
 	MSF struct {
 		MsfDir string `yaml:"msf_dir"`
 	}
@@ -30,15 +27,6 @@ type Config struct {
 	Vulhub struct {
 		VulhubDir string `yaml:"vulhub_dir"`
 	}
-
-	Exploitdb struct {
-		ExploitdbDir string `yaml:"exploitdb_dir"`
-	}
-
-	PacketStorm struct {
-		PacketstormDir string `yaml:"packetstorm_dir"`
-	}
-
 	Email struct {
 		SMTP_SERVER string   `yaml:"smtp_server"`
 		SMTP_PORT   string   `yaml:"smtp_port"`

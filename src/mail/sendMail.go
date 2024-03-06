@@ -79,6 +79,5 @@ func Sendmail() {
 		fmt.Println(err)
 		return
 	}
-
-	fmt.Println("send mail successfully")
+	utils.PrintColor("success", "Send mail successfully")
 }
