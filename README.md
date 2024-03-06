@@ -167,7 +167,7 @@ Google Chrome 121.0.6167.139
 
 #### github
 
-![Drawing2024-02-01 14.36.27.excalidraw](assets/Drawing2024-02-01 14.36.27.excalidraw.png)
+![github](assets/github.png)
 
 #### metasploit&vulhub
 
