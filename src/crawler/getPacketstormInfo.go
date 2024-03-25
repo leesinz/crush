@@ -43,18 +43,26 @@ func CheckPacketstormUpdate() string {
 		date_tmp, _ := date_selector.Attr("href")
 		dateParts := strings.Split(date_tmp, "/")
 		date := dateParts[len(dateParts)-2]
-		cve := s.Find("dd.cve a").Text()
+		cveLinks := s.Find("dd.cve a")
+
+		var cves []string
+		cveLinks.Each(func(j int, cveLink *goquery.Selection) {
+			cve := cveLink.Text()
+			cves = append(cves, cve)
+		})
+
+		cveStr := strings.Join(cves, ",")
 		description := s.Find("dd.detail p").Text()
 		poc_selector := s.Find("dd.act-links a[href^='/files/download']")
 		poc_tmp, _ := poc_selector.Attr("href")
 		poc := "https://packetstormsecurity.com" + poc_tmp
 		if date == yesterday {
 			updated = true
-			err := database.InsertPacketstormDB(id, string2date(date), name, cve, poc, description)
+			err := database.InsertPacketstormDB(id, string2date(date), name, cveStr, poc, description)
 			if err != nil {
 				log.Fatal(err)
 			}
-			result.WriteString(id + " " + name + " " + cve + "\n")
+			result.WriteString(id + " " + name + " " + cveStr + "\n")
 			rstHTML.WriteString(fmt.Sprintf("%s   <a href=\"%s\">%s</a>\n", id, poc, name))
 		}
 	})
