@@ -1,12 +1,11 @@
 package main
 
-import "crush/crawler"
+import (
+	"crush/options"
+	"crush/utils"
+)
 
 func main() {
-	/*
-		utils.PrintBanner()
-		options.ArgParser()
-
-	*/
-	crawler.CheckPOCUpdate()
+	utils.PrintBanner()
+	options.ArgParser()
 }
