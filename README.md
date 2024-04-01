@@ -63,26 +63,32 @@ database:
 
 #If downloadPOC is set to false, the poc_dir parameter in GitHub, ExploitDB, and PacketStorm does not need to be configured
 poc:
-  downloadPOC: false							#whether to download poc
+  #whether to download poc
+  downloadPOC: false
 
 github:
   github_token: ghp_xxx
-  poc_dir: "/root/vul_info/poc/github/"			#dir for GitHub PoCs
-  blacklist:									#github blacklist users
+  #dir for GitHub PoCs
+  poc_dir: "/root/vul_info/poc/github/"
+  #github blacklist users
+  blacklist:
     - xxx
     - aaa
 
 exploitdb:
-  poc_dir: "/root/vul_info/poc/exploitdb/"		#dir for exploit-db PoCs
+  #dir for exploit-db PoCs
+  poc_dir: "/root/vul_info/poc/exploitdb/"
 
 packetstorm:
-  poc_dir: "/root/vul_info/poc/packetstorm/"	#dir for packetstorm PoCs
+  #dir for packetstorm PoCs
+  poc_dir: "/root/vul_info/poc/packetstorm/"	
 
 email:
   smtp_server: smtp.163.com
   smtp_port: 25
   username: test@163.com
-  password: xxx									#authentication code
+  #authentication code
+  password: xxx
   from: test@163.com
   to:
     - test1@163.com
@@ -123,6 +129,8 @@ Google Chrome 121.0.6167.139
 ```
 
 #### 快速开始
+
+**如果本地无法搭建项目，可以关注文末公众号获取漏洞更新信息，每天上午进行推送**
 
 ##### 环境配置
 
