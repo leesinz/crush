@@ -52,7 +52,7 @@ func CheckPOCUpdate() string {
 			data = dataParts[1]
 
 			var cve string
-			re := regexp.MustCompile(`CVE-\d{4}-\d{4}`)
+			re := regexp.MustCompile(`CVE-\d{4}-\d{4,}`)
 			cveMatches := re.FindStringSubmatch(data)
 			if len(cveMatches) > 0 {
 				cve = cveMatches[0]
