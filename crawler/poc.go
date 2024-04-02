@@ -47,7 +47,7 @@ func CheckPOCUpdate() string {
 	for _, data := range fileList {
 		if _, ok := files[data]; !ok {
 			update = true
-			url := "https://raw.githubusercontent.com/wy876/POC/main/" + data
+			url := "https://raw.githubusercontent.com/wy876/POC/main" + data
 			dataParts := strings.Split(strings.TrimSuffix(data, ".md"), "/")
 			data = dataParts[1]
 
