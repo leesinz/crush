@@ -1,6 +1,6 @@
  ![Github stars](https://img.shields.io/github/stars/leesinz/crush.svg)
 
-## CRUSH是一款漏洞监控工具，用来监控每日漏洞更新并通过邮件推送
+## CRUSH是一款漏洞监控工具，用来监控每日漏洞更新并通过邮件推送[📝English Document](https://github.com/leesinz/crush/blob/main/README_EN.md)
 
 ```
 
