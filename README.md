@@ -1,6 +1,7 @@
  ![Github stars](https://img.shields.io/github/stars/leesinz/crush.svg)
 
-## CRUSH是一款漏洞监控工具，用来监控每日漏洞更新并通过邮件推送[📝English Document](https://github.com/leesinz/crush/blob/main/README_EN.md)
+## CRUSH是一款漏洞监控工具，用来监控每日漏洞更新并通过邮件推送
+## [📝English Document](https://github.com/leesinz/crush/blob/main/README_EN.md)
 
 ```
 
@@ -129,8 +130,6 @@ Google Chrome 121.0.6167.139
 ```
 
 #### 快速开始
-
-**如果本地无法搭建项目，可以关注文末公众号获取漏洞更新信息，每天上午进行推送**
 
 ##### 环境配置
 
