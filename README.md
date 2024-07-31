@@ -1,3 +1,8 @@
+## 停止更新，后续请见https://github.com/leesinz/Athena，逻辑处理更完善，功能更强
+ 
+ 
+ 
+ 
  ![Github stars](https://img.shields.io/github/stars/leesinz/crush.svg)
 
 ## CRUSH是一款漏洞监控工具，用来监控每日漏洞更新并通过邮件推送
