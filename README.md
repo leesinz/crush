@@ -1,4 +1,4 @@
-## 停止更新，后续请见https://github.com/leesinz/Athena，逻辑处理更完善，功能更强
+## 停止更新，后续请见新项目，逻辑处理更完善，功能更强：https://github.com/leesinz/Athena
  
  
  
