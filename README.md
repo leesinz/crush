@@ -306,4 +306,3 @@ exploit-db和packetstorm目录以漏洞ID命名，github监控到的漏洞以CVE
 
 ![Star History Chart](https://api.star-history.com/svg?repos=leesinz/crush&type=Date)
 
-![qrcode](assets/qrcode.jpg)
